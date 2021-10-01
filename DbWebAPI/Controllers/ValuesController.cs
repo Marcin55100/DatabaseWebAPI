@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DbWebAPI.DataContext;
+using DbWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DbWebAPI.Controllers
@@ -10,10 +12,22 @@ namespace DbWebAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly AppDbContext _context;
+        public ValuesController(AppDbContext context)
+        {
+            _context = context;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            var user = new User()
+            {
+                UserName = "Gacek222"
+            };
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return new string[] { "value1", "value2" };
         }
 
