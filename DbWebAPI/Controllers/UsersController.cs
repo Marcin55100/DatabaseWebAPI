@@ -25,6 +25,12 @@ namespace DbWebAPI.Controllers
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
+            var user = new User()
+            {
+                UserName = "Gacek222"
+            };
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return _context.Users;
         }
 
